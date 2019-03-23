@@ -27,15 +27,26 @@ public class DFSFileExplorer implements IFileExplorer {
             if (rootDirectory.isDirectory()) {
 
                 // list of path that indicate rootDirectory file,
-                File[] dirListFile = rootDirectory.listFiles(File::isDirectory);
+                File[] dirListFile = rootDirectory.listFiles();
 
                 Arrays.sort(dirListFile);
-                // apply on all file
+
+                // apply on all file in root
                 for (File dir : dirListFile) {
-                    this.explore(dir, vistor);
+
+                    //this.explore(dir, vistor);
+                    if (dir.isFile()) {
+                        vistor.visit(dir);
+                    } else {
+                        explore(dir, vistor);
+                    }
                 }
             }
-        }
-    }
 
+
+        }
+
+    }
 }
+
+
